@@ -47,6 +47,7 @@ if (typeof document !== "undefined") {
     save();
     const open = state.items.filter((i) => !i.doneAt);
     const done = state.items.filter((i) => i.doneAt);
+    $("count").textContent = open.length;
     $("list").replaceChildren(
       ...[...open, ...done].map((i) => {
         const li = document.createElement("li");

@@ -1,4 +1,4 @@
-const CACHE = "grocery-v3";
+const CACHE = "grocery-v4";
 const FILES = ["./", "index.html", "app.js", "manifest.webmanifest", "icon.svg", "icon.png"];
 self.addEventListener("install", (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES))));
 self.addEventListener("activate", (e) =>
