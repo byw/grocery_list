@@ -33,13 +33,12 @@
     content: ""; display: block; height: 3px; margin: 1.5rem 0 2.5rem;
     background: linear-gradient(90deg, var(--red) 0 25%, var(--yellow) 25% 50%, var(--teal) 50% 75%, var(--blue) 75%);
   }
-  header { display: grid; grid-template-columns: 1fr auto; align-items: end; margin-bottom: 2rem; }
+  header { margin-bottom: 2rem; }
   h1 { margin: 0; font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
-  #count { margin: 0; font-size: 4.5rem; line-height: .85; font-weight: 700; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 
   form { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1.5rem; }
   input {
-    font: inherit; font-size: 1.25rem; padding: .6rem 0;
+    font: inherit; font-size: 1.25rem; padding: .6rem 0; appearance: none;
     background: none; border: 0; border-bottom: 1px solid var(--fg); border-radius: 0; color: var(--fg);
   }
   input::placeholder { color: var(--mute); }
@@ -55,14 +54,14 @@
   ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
   li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--rule); font-size: 1.25rem; }
   /* retro technicolour: dot colour cycles per row */
-  li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; border: 1.5px solid var(--c, var(--fg)); }
+  li::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--c, var(--fg)); }
   li:nth-child(4n+1) { --c: var(--red); }
   li:nth-child(4n+2) { --c: var(--yellow); }
   li:nth-child(4n+3) { --c: var(--teal); }
   li:nth-child(4n+4) { --c: var(--blue); }
   li span { cursor: pointer; user-select: none; }
-  li.done::before { background: var(--c); }
-  li.done span { text-decoration: line-through; text-decoration-color: var(--c); color: var(--mute); }
+  li.done { opacity: .3; }
+  li.done span { text-decoration: line-through; text-decoration-color: var(--mute); }
   li button { border: 0; padding: .25rem .5rem; color: var(--mute); font-size: 1.1rem; letter-spacing: 0; }
   li button:hover { color: var(--red); }
   li button:active { background: none; }
@@ -72,7 +71,6 @@
 <body>
 <header>
   <h1>Groceries</h1>
-  <p id="count">0</p>
 </header>
 <form id="add">
   <input id="name" list="hist" placeholder="Add item" autocomplete="off" required autofocus aria-label="Item name">
