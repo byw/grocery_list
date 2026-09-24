@@ -30,11 +30,9 @@
   }
   /* technicolour stripe */
   body::before {
-    content: ""; display: block; height: 3px; margin: 1.5rem 0 2.5rem;
+    content: ""; display: block; height: 3px; margin: 1.5rem 0 2rem;
     background: linear-gradient(90deg, var(--red) 0 25%, var(--yellow) 25% 50%, var(--teal) 50% 75%, var(--blue) 75%);
   }
-  header { margin-bottom: 2rem; }
-  h1 { margin: 0; font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); }
 
   form { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1.5rem; }
   input {
@@ -72,9 +70,6 @@
 </style>
 </head>
 <body>
-<header>
-  <h1>Groceries</h1>
-</header>
 <form id="add">
   <input id="name" list="hist" placeholder="Add item" autocomplete="off" required autofocus aria-label="Item name">
   <datalist id="hist"></datalist>
