@@ -77,4 +77,9 @@ if (typeof document !== "undefined") {
   document.addEventListener("visibilitychange", () => !document.hidden && render());
   render();
   navigator.serviceWorker?.register("sw.js");
+  navigator.serviceWorker?.addEventListener("controllerchange", () => location.reload());
+  $("reload").onclick = async () => {
+    await (await navigator.serviceWorker?.getRegistration())?.update();
+    location.reload();
+  };
 }

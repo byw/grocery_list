@@ -65,6 +65,9 @@
   li button { border: 0; padding: .25rem .5rem; color: var(--mute); font-size: 1.1rem; letter-spacing: 0; }
   li button:hover { color: var(--red); }
   li button:active { background: none; }
+  details { margin-top: 3rem; }
+  summary { font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); cursor: pointer; }
+  details button { margin-top: 1rem; padding: .6rem 1rem; }
   ul:empty::after { content: "Nothing to buy."; display: block; padding: 2rem 0; color: var(--mute); font-size: .9rem; }
 </style>
 </head>
@@ -78,6 +81,10 @@
   <button type="submit">Add</button>
 </form>
 <ul id="list"></ul>
+<details>
+  <summary>Settings</summary>
+  <button id="reload" type="button">Reload app</button>
+</details>
 <script type="module" src="app.js"></script>
 </body>
 </html>
