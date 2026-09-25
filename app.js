@@ -37,10 +37,29 @@ export function suggestions(state) {
 
 if (typeof document !== "undefined") {
   const STORE = "grocery";
-  let state = JSON.parse(localStorage.getItem(STORE)) || { items: [], history: {} };
+  let state = { items: [], history: {}, prefs: {}, ...JSON.parse(localStorage.getItem(STORE)) };
   const $ = (id) => document.getElementById(id);
 
   const save = () => localStorage.setItem(STORE, JSON.stringify(state));
+
+  let audio;
+  function chime() {
+    audio ??= new AudioContext();
+    const t0 = audio.currentTime;
+    [[880, 0], [1320, 0.12]].forEach(([hz, dt]) => {
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.frequency.value = hz;
+      o.connect(g).connect(audio.destination);
+      g.gain.setValueAtTime(0.2, t0 + dt);
+      g.gain.exponentialRampToValueAtTime(0.001, t0 + dt + 0.25);
+      o.start(t0 + dt);
+      o.stop(t0 + dt + 0.25);
+    });
+  }
+  // ponytail: navigator.vibrate is Android-only; iOS Safari ignores it silently.
+  const vibrate = () => navigator.vibrate?.(40);
+  const feedback = { chime, vibrate };
+  const onDone = () => { for (const k in feedback) if (state.prefs[k]) feedback[k](); };
 
   function render() {
     archive(state);
@@ -53,7 +72,7 @@ if (typeof document !== "undefined") {
         li.className = i.doneAt ? "done" : "";
         const span = document.createElement("span");
         span.textContent = i.name;
-        span.onclick = () => { toggle(state, i.name); render(); };
+        span.onclick = () => { const wasOpen = !i.doneAt; toggle(state, i.name); if (wasOpen) onDone(); render(); };
         const x = document.createElement("button");
         x.textContent = "×";
         x.setAttribute("aria-label", `Remove ${i.name}`);
@@ -74,6 +93,10 @@ if (typeof document !== "undefined") {
     $("name").focus();
     render();
   };
+  for (const k in feedback) {
+    $(k).checked = !!state.prefs[k];
+    $(k).onchange = (e) => { state.prefs[k] = e.target.checked; save(); if (e.target.checked) feedback[k](); };
+  }
   document.addEventListener("visibilitychange", () => !document.hidden && render());
   render();
   navigator.serviceWorker?.register("sw.js");

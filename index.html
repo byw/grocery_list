@@ -35,13 +35,13 @@
   }
 
   form { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 1.5rem; }
-  input {
+  #name {
     font: inherit; font-size: 1.25rem; padding: .6rem 0; appearance: none;
     background: none; border: 0; border-bottom: 1px solid var(--fg); border-radius: 0; color: var(--fg);
   }
   input::placeholder { color: var(--mute); }
   input::-webkit-calendar-picker-indicator { display: none; }
-  input:focus { outline: none; border-bottom-color: var(--yellow); }
+  #name:focus { outline: none; border-bottom-color: var(--yellow); }
   button {
     font: inherit; font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
     background: none; border: 1px solid var(--fg); border-radius: 0; color: var(--fg); padding: 0 1rem; cursor: pointer;
@@ -65,7 +65,9 @@
   li button:active { background: none; }
   details { margin-top: 3rem; }
   summary { font-size: .75rem; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--mute); cursor: pointer; }
-  details button { margin-top: 1rem; padding: .6rem 1rem; }
+  details label { display: flex; align-items: center; gap: .75rem; margin-top: 1rem; font-size: 1rem; cursor: pointer; }
+  details input[type="checkbox"] { width: 1.1rem; height: 1.1rem; margin: 0; accent-color: var(--yellow); }
+  details button { margin-top: 1.25rem; padding: .6rem 1rem; }
   ul:empty::after { content: "Nothing to buy."; display: block; padding: 2rem 0; color: var(--mute); font-size: .9rem; }
 </style>
 </head>
@@ -78,6 +80,8 @@
 <ul id="list"></ul>
 <details>
   <summary>Settings</summary>
+  <label><input type="checkbox" id="chime"> Chime on check-off</label>
+  <label><input type="checkbox" id="vibrate"> Vibrate on check-off</label>
   <button id="reload" type="button">Reload app</button>
 </details>
 <script type="module" src="app.js"></script>
